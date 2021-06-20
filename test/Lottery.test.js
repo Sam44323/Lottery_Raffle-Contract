@@ -58,8 +58,9 @@ describe("Lottery", () => {
         from: accounts[0],
         value: 0,
       });
+      assert(false);
     } catch (err) {
-      assert.ok(err);
+      assert(err);
     }
   });
 });
