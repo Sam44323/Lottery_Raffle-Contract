@@ -4,11 +4,12 @@ contract Lottery {
     address public manager;
     address[] public players;
 
-    constructor() {
+    constructor() public {
         manager = msg.sender;
     }
 
     function enter() public payable {
+        // need .01 ether to eneter the lottery
         require(msg.value > .01 ether);
         players.push(msg.sender);
     }
@@ -20,18 +21,17 @@ contract Lottery {
             );
     }
 
-    function picWinner() public restricted {
-        uint256 index = randomNumberGenerator() % players.length; // getting a random index
-        players[index].transact(this.balance);
+    function pickWinner() public restricted {
+        uint256 index = randomNumberGenerator() % players.length;
+        players[index].transfer(this.balance);
         players = new address[](0);
     }
 
-    function getAllPlayer() public returns (address[]) {
+    function getAllPlayers() public view returns (address[]) {
         return players;
     }
 
     modifier restricted() {
-        // for entering codes that will be used in multiple places in code
         require(msg.sender == manager);
         _;
     }
