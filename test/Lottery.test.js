@@ -23,4 +23,15 @@ describe("Lottery", () => {
   it("deploys a contract", () => {
     assert.ok(lottery.options.address);
   });
+
+  it("allows one account to enter", async () => {
+    await lottery.methods.enter().send({
+      from: accounts[0],
+      value: web3.utils.toWei("0.03", "ether"),
+    });
+    const players = await lottery.methods.getAllPlayers().call({
+      from: accounts[0],
+    });
+    assert.strictEqual(accounts[0], players[0]);
+  });
 });
