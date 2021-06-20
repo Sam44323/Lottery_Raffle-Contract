@@ -21,7 +21,7 @@ contract Lottery {
     }
 
     function picWinner() public restricted {
-        uint256 index = randomNumberGenerator() % players.length;
+        uint256 index = randomNumberGenerator() % players.length; // getting a random index
         players[index].transact(this.balance);
         players = new address[](0);
     }
