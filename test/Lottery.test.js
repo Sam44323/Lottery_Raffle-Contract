@@ -52,7 +52,7 @@ describe("Lottery", () => {
     assert.strictEqual(3, players.length);
   });
 
-  describe("throws error if the minimum amount of ether is not sent while entering the lottery", async () => {
+  it("throws error if the minimum amount of ether is not sent while entering the lottery", async () => {
     try {
       await lottery.methods.enter().send({
         from: accounts[0],
@@ -62,5 +62,30 @@ describe("Lottery", () => {
     } catch (err) {
       assert(err);
     }
+  });
+
+  it("checking the restricting functionality of the pickWinner method", async () => {
+    try {
+      lottery.methods.pickWinner().send({
+        from: accounts[1],
+      });
+      assert(false);
+    } catch (err) {
+      assert(err);
+    }
+  });
+
+  it("sends the money to the winner and resets the player array", async () => {
+    await lottery.methods.enter().send({
+      from: accounts[0],
+      value: web3.utils.toWei("3", "ether"),
+    });
+    const initialBalance = await web3.eth.getBalance(accounts[0]);
+    await lottery.methods.pickWinner().send({
+      from: accounts[0],
+    });
+    const finalBalance = await web3.eth.getBalance(accounts[0]);
+    const difference = finalBalance - initialBalance;
+    assert(difference > web3.utils.toWei("2.8", "ether"));
   });
 });
