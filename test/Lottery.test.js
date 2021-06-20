@@ -46,9 +46,9 @@ describe("Lottery", () => {
     const players = await lottery.methods.getAllPlayers().call({
       from: accounts[0],
     });
-    assert.strictEqual(accounts[0], players[0]);
-    assert.strictEqual(accounts[1], players[1]);
-    assert.strictEqual(accounts[2], players[2]);
+    for (let i = 0; i < 3; i++) {
+      assert.strictEqual(accounts[i], players[i]);
+    }
     assert.strictEqual(3, players.length);
   });
 });
