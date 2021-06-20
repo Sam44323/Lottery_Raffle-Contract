@@ -51,4 +51,15 @@ describe("Lottery", () => {
     }
     assert.strictEqual(3, players.length);
   });
+
+  describe("throws error if the minimum amount of ether is not sent while entering the lottery", async () => {
+    try {
+      await lottery.methods.enter().send({
+        from: accounts[0],
+        value: 0,
+      });
+    } catch (err) {
+      assert.ok(err);
+    }
+  });
 });
