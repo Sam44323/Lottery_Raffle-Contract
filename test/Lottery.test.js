@@ -33,5 +33,6 @@ describe("Lottery", () => {
       from: accounts[0],
     });
     assert.strictEqual(accounts[0], players[0]);
+    assert.strictEqual(1, players.length);
   });
 });
