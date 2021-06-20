@@ -87,5 +87,9 @@ describe("Lottery", () => {
     const finalBalance = await web3.eth.getBalance(accounts[0]);
     const difference = finalBalance - initialBalance;
     assert(difference > web3.utils.toWei("2.8", "ether"));
+    const players = await lottery.methods.getAllPlayers().call({
+      from: accounts[0],
+    });
+    assert.strictEqual(0, players.length);
   });
 });
