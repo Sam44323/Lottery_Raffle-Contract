@@ -1,6 +1,6 @@
 # Lottery Contract
 
-**A simle self-resetting lottery game that takes some crypto from the joining players and a manages. The manager starts the game and randomly chooses a lottery number which in turn chooses a winner randomly and gives all the submitted cryptos as price**
+**A simple self-resetting lottery game that takes some crypto from the joining players and a manages. The manager starts the game and randomly chooses a lottery number which in turn chooses a winner randomly and gives all the submitted cryptos as price**
 
 ---
 
